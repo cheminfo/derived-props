@@ -55,7 +55,7 @@ test('deriveProps simple', () => {
 });
 
 test('deriveProps big', () => {
-  const data:any = {
+  const data: any = {
     x: new Float64Array(1e7),
   };
 
