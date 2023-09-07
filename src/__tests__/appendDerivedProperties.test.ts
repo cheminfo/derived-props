@@ -1,25 +1,19 @@
 import { produce } from 'immer';
 import { test, expect } from 'vitest';
 
-import { appendDerivedProperties } from '../appendDerivedProperties';
+import { appendDerivedProperties } from '..';
 
 test('deriveProps simple', () => {
   const data = {
-    name: 'John',
+    propertyName: 'John',
     originalX: 30,
     data: {
       originalX: [1, 2, 3],
       y: [2, 3, 4],
     },
     ranges: [
-      {
-        originalFrom: 1,
-        originalTo: 2,
-      },
-      {
-        originalFrom: 3,
-        originalTo: 4,
-      },
+      { originalFrom: 1, originalTo: 2 },
+      { originalFrom: 3, originalTo: 4 },
     ],
   };
 
@@ -29,19 +23,19 @@ test('deriveProps simple', () => {
   // In this mapping we ignore the arrays indices
   const appenders = {
     'ranges.originalFrom': {
-      name: 'from',
+      propertyName: 'from',
       callback,
     },
     'ranges.originalTo': {
-      name: 'to',
+      propertyName: 'to',
       callback,
     },
     'data.originalX': {
-      name: 'x',
+      propertyName: 'x',
       callback,
     },
     originalX: {
-      name: 'x',
+      propertyName: 'x',
       callback,
     },
   };
@@ -49,7 +43,7 @@ test('deriveProps simple', () => {
   appendDerivedProperties(data, appenders);
 
   expect(data).toStrictEqual({
-    name: 'John',
+    propertyName: 'John',
     originalX: 30,
     data: { originalX: [1, 2, 3], y: [2, 3, 4], x: [3, 4, 5] },
     ranges: [
@@ -61,7 +55,7 @@ test('deriveProps simple', () => {
 });
 
 test('deriveProps big', () => {
-  const data = {
+  const data:any = {
     x: new Float64Array(1e7),
   };
 
@@ -71,7 +65,7 @@ test('deriveProps big', () => {
   // In this mapping we ignore the arrays indices
   const appenders = {
     x: {
-      name: 'y',
+      propertyName: 'y',
       callback,
     },
   };
@@ -98,12 +92,12 @@ test('with immer', () => {
   // In this mapping we ignore the arrays indices
   const appenders = {
     x: {
-      name: 'y',
+      propertyName: 'y',
       callback,
     },
   };
 
-  const nextData = produce(data, (draft) => {
+  const nextData: any = produce(data, (draft) => {
     appendDerivedProperties(draft, appenders);
   });
 

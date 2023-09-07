@@ -1,14 +1,14 @@
 import { isAnyArray } from 'is-any-array';
 
 interface Appender {
-  name: string;
+  propertyName: string;
   callback: (value: any) => any;
 }
 
 /**
  *
  * @param data - any data object that may contain object, arrays, etc
- * @param mapping - a mapping from the original property path to the new property name
+ * @param mapping - a mapping from the original property path to the new property propertyName
  * @param callback - a function that takes the original value and returns the new value
  */
 export function appendDerivedProperties(
@@ -20,11 +20,11 @@ export function appendDerivedProperties(
     const appender = appenders[path];
     if (appender) {
       if (isAnyArray(info.value)) {
-        parent[appender.name] = info.value.map((value: any) =>
+        parent[appender.propertyName] = info.value.map((value: any) =>
           appender.callback(value),
         );
       } else {
-        parent[appender.name] = appender.callback(info.value);
+        parent[appender.propertyName] = appender.callback(info.value);
       }
     }
   });
