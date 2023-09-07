@@ -1,6 +1,6 @@
 {
   "name": "derived-props",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Calculate derived properties",
   "main": "./lib/index.js",
   "module": "./lib-esm/index.js",
