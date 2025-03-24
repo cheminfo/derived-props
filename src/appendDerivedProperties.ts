@@ -8,8 +8,7 @@ interface Appender {
 /**
  *
  * @param data - any data object that may contain object, arrays, etc
- * @param mapping - a mapping from the original property path to the new property propertyName
- * @param callback - a function that takes the original value and returns the new value
+ * @param appenders
  */
 export function appendDerivedProperties(
   data: any,
