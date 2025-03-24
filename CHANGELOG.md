@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0](https://github.com/cheminfo/derived-props/compare/v0.0.1...v1.0.0) (2025-03-24)
+
+
+### release-as
+
+* v1.0.0 ([d2c8f93](https://github.com/cheminfo/derived-props/commit/d2c8f935fb5c2a80d1174cd7927d391e99b99f5c))
+
 ## 0.0.1 (2023-09-07)
 
 
