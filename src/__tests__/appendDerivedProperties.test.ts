@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/consistent-function-scoping */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { produce } from 'immer';
 import { test, expect } from 'vitest';
 
