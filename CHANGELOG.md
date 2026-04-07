@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/cheminfo/derived-props/compare/v1.0.0...v2.0.0) (2026-04-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate to type: module and update dependencies
+
+### Features
+
+* migrate to type: module and update dependencies ([312795b](https://github.com/cheminfo/derived-props/commit/312795bfefb28f1a67f1f03e298a6419670ec224))
+
 ## [1.0.0](https://github.com/cheminfo/derived-props/compare/v0.0.1...v1.0.0) (2025-03-24)
 
 
