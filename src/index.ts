@@ -1,1 +1,1 @@
-export * from './appendDerivedProperties';
+export * from './appendDerivedProperties.ts';

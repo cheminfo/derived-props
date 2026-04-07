@@ -1,9 +1,9 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { produce } from 'immer';
-import { test, expect } from 'vitest';
+import { expect, test } from 'vitest';
 
-import { appendDerivedProperties } from '..';
+import { appendDerivedProperties } from '../index.ts';
 
 test('deriveProps simple', () => {
   const data = {
@@ -78,6 +78,7 @@ test('deriveProps big', () => {
   for (let i = 0; i < data.x.length; i++) {
     sum = sum + data.x[i] + data.y[i];
   }
+
   expect(sum).toBe(1e7);
 
   expect(Date.now() - start).toBeLessThan(1000);
@@ -107,6 +108,7 @@ test('with immer', () => {
   for (let i = 0; i < nextData.x.length; i++) {
     sum = sum + nextData.x[i] + nextData.y[i];
   }
+
   expect(sum).toBe(1e7);
 
   expect(Date.now() - start).toBeLessThan(1000);

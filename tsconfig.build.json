@@ -1,0 +1,9 @@
+{
+  "extends": "@zakodium/tsconfig",
+  "compilerOptions": {
+    "rootDir": "src",
+    "types": ["node"]
+  },
+  "include": ["src"],
+  "exclude": ["src/**/__tests__"]
+}

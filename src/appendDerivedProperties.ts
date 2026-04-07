@@ -5,16 +5,31 @@ interface Appender {
   callback: (value: any) => any;
 }
 
+interface DeriveInfo {
+  path: string[];
+  noArrayPath: string[];
+}
+
+interface CallbackInfo extends DeriveInfo {
+  value: any;
+}
+
+type DeriveCallback = (
+  parent: any,
+  propName: string,
+  info: CallbackInfo,
+) => void;
+
 /**
- *
- * @param data - any data object that may contain object, arrays, etc
- * @param appenders
+ * Append derived properties to a data object based on property path matching.
+ * @param data - Any data object that may contain nested objects, arrays, etc.
+ * @param appenders - Record of jpath patterns mapped to appender configurations.
  */
 export function appendDerivedProperties(
   data: any,
   appenders: Record<string, Appender>,
 ) {
-  deriveProps(data, (parent: any, propName: string, info: any) => {
+  deriveProps(data, (parent, propName, info) => {
     const path = info.noArrayPath.join('.');
     const appender = appenders[path];
     if (appender) {
@@ -29,26 +44,25 @@ export function appendDerivedProperties(
   });
 }
 
-function deriveProps(data: any, callback: any, options = {}): void {
-  const info = {
+function deriveProps(data: any, callback: DeriveCallback): void {
+  const info: DeriveInfo = {
     path: [],
     noArrayPath: [],
   };
-  derivePropsSS(data, callback, info, options);
+  derivePropsSS(data, callback, info);
 }
 
 function derivePropsSS(
   data: any,
-  callback: any,
-  info: any,
-  options = {},
+  callback: DeriveCallback,
+  info: DeriveInfo,
 ): void {
   if (typeof data !== 'object' || isArrayOfPrimitives(data)) {
     return;
   }
   for (const propName in data) {
     if (data[propName] !== undefined) {
-      const newInfo: any = {
+      const newInfo: DeriveInfo = {
         path: [...info.path, propName],
         noArrayPath: info.noArrayPath,
       };
@@ -59,7 +73,7 @@ function derivePropsSS(
         typeof data[propName] === 'object' &&
         !isArrayOfPrimitives(data[propName])
       ) {
-        derivePropsSS(data[propName], callback, newInfo, options);
+        derivePropsSS(data[propName], callback, newInfo);
       } else {
         callback(data, propName, { value: data[propName], ...newInfo });
       }
